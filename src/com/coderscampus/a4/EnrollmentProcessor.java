@@ -4,11 +4,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 public class EnrollmentProcessor {
 	Student student = new Student();
- 
+
 	public static void main(String[] args) {
 		String masterFile = "student-master-list.csv";
 		Student[] course1 = new Student[100];
@@ -48,9 +49,9 @@ public class EnrollmentProcessor {
 		}
 
 // sort the students by grade in descending order
-		sortStudentsByCourse(course1, count1);
-		sortStudentsByCourse(course2, count2);
-		sortStudentsByCourse(course3, count3);
+		sortStudentsByCourse(course1);
+		sortStudentsByCourse(course2);
+		sortStudentsByCourse(course3);
 
 // write the sorted students into seperate csv files
 		writeToFile("course1.csv", course1, count1);
@@ -58,18 +59,9 @@ public class EnrollmentProcessor {
 		writeToFile("course3.csv", course3, count3);
 	}
 
-//private static void sortStudentByCourse(List<Student> course1) {
-	
-	for (int i = 0; i < count - i - 1; i++) {
-		for (int j =0; j < count - i - 1; j++) {
-			if (((Student) student[j]).getGrade() < student[j + 1].getGrade()){
-				Student temp = student[j];
-				student[j] = student[j + 1];
-				student[j + 1] = temp;
-			}
-		}
-	}		
-}
+	private static void sortStudentsByCourse(Student[] course1) {
+		Arrays.sort(course1);
+	}
 
 	private static void sortStudentsByGrade(List<Student> students, int i) {
 		Student newStudent = new Student();
@@ -84,7 +76,7 @@ public class EnrollmentProcessor {
 
 			}
 		}
-		
+
 		while (i < students.size() && students.get(i).grade >= newStudent.grade) {
 			i++;
 		}
