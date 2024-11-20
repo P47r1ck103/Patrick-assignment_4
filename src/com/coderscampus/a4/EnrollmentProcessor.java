@@ -11,21 +11,19 @@ public class EnrollmentProcessor {
 	Student student = new Student();
 
 	public static void main(String[] args) {
-		String masterFile = "student-master-list.csv";
 		Student[] course1 = new Student[100];
 		Student[] course2 = new Student[100];
 		Student[] course3 = new Student[100];
 
 		int count1 = 0, count2 = 0, count3 = 0;
 
-// 1. read the master csv file and split student by course
-		try (BufferedReader bufferedReader = new BufferedReader(new FileReader("/src/student-master-list.csv"))) {
+		try (BufferedReader bufferedReader = new BufferedReader(new FileReader("src/student-master-list.csv"))) {
 			String line;
 			boolean firstLine = true;
 			while ((line = bufferedReader.readLine()) != null) {
 				if (firstLine) {
 					firstLine = false;
-					continue;// skip header row
+					continue;
 				}
 				String[] data = line.split(",");
 				int studentId = Integer.parseInt(data[0].trim());
@@ -34,7 +32,6 @@ public class EnrollmentProcessor {
 				int grade = Integer.parseInt(data[3].trim());
 
 				Student student = new Student(studentId, studentName, course, grade);
-				// insert the students into the respective course in sorted order
 				if (course.startsWith("COMPSCI")) {
 					course1[count1++] = student;
 				} else if (course.startsWith("APMTH")) {
@@ -48,12 +45,10 @@ public class EnrollmentProcessor {
 			e.printStackTrace();
 		}
 
-// sort the students by grade in descending order
 		sortStudentsByCourse(course1);
 		sortStudentsByCourse(course2);
 		sortStudentsByCourse(course3);
 
-// write the sorted students into seperate csv files
 		writeToFile("course1.csv", course1, count1);
 		writeToFile("course2.csv", course2, count2);
 		writeToFile("course3.csv", course3, count3);
@@ -83,7 +78,6 @@ public class EnrollmentProcessor {
 		students.add(i, newStudent);
 	}
 
-// method to write list of students to a file
 	private static void writeToFile(String fileName, Student[] students, int count) {
 		try (FileWriter Writer = new FileWriter(fileName)) {
 			Writer.write("Student ID, Student Name, Course, Grade\n");
