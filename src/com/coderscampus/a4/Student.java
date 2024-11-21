@@ -52,7 +52,7 @@ public class Student implements Comparable<Student> {
 		if (this.grade > that.grade) {
 			return -1;
 		} else if (this.course.equals(that.course)) {
-			return this.course.compareTo(course);
+			return this.course.compareTo(that.course);
 		} else {
 			return 1;
 		}

@@ -11,12 +11,12 @@ public class EnrollmentProcessor {
 	Student student = new Student();
 
 	public static void main(String[] args) {
-		Student[] course1 = new Student[100];
-		Student[] course2 = new Student[100];
-		Student[] course3 = new Student[100];
+		Student[] course1 = new Student[34];
+		Student[] course2 = new Student[33];
+		Student[] course3 = new Student[33];
 
 		int count1 = 0, count2 = 0, count3 = 0;
-
+		
 		try (BufferedReader bufferedReader = new BufferedReader(new FileReader("src/student-master-list.csv"))) {
 			String line;
 			boolean firstLine = true;
@@ -39,6 +39,7 @@ public class EnrollmentProcessor {
 				} else if (course.startsWith("STAT")) {
 					course3[count3++] = student;
 				}
+			
 			}
 		} catch (IOException e) {
 
@@ -52,8 +53,8 @@ public class EnrollmentProcessor {
 		writeToFile("course1.csv", course1, count1);
 		writeToFile("course2.csv", course2, count2);
 		writeToFile("course3.csv", course3, count3);
+	
 	}
-
 	private static void sortStudentsByCourse(Student[] course1) {
 		Arrays.sort(course1);
 	}
@@ -88,5 +89,6 @@ public class EnrollmentProcessor {
 			e.printStackTrace();
 		}
 	}
+	
+	}
 
-}
